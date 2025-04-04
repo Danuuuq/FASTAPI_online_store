@@ -31,7 +31,7 @@ class CategoryUpdate(CategoryBase):
 
 
 class CategoryDB(CategoryCreate):
-    category_id: int
+    # parent_category_id: int
 
     class Config:
         from_attributes = True

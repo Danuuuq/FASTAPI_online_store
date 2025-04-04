@@ -31,9 +31,9 @@ async_session_maker = async_sessionmaker(
 )
 
 int_pk = Annotated[int, mapped_column(primary_key=True)]
-created_at = Annotated[datetime, mapped_column(server_default=func.now())]
-updated_at = Annotated[datetime, mapped_column(server_default=func.now(),
-                                               onupdate=func.now())]
+created_at = Annotated[datetime, mapped_column(server_default=func.now(timezone=True))]
+updated_at = Annotated[datetime, mapped_column(server_default=func.now(timezone=True),
+                                               onupdate=func.now(timezone=True))]
 str_50 = Annotated[str, settings.MAX_LENGTH_INFO]
 str_255 = Annotated[str, settings.MAX_LENGTH_NAME]
 num_10_2 = Annotated[Decimal, settings.MAX_DECIMAL_PRICE]

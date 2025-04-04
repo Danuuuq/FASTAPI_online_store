@@ -8,14 +8,24 @@ from app.schemas.category import CategoryCreate, CategoryDB, CategoryUpdate
 router = APIRouter()
 
 
+@router.get(
+    '/',
+    response_model=list[CategoryDB]
+)
+async def get_all_category(
+    session: AsyncSession = Depends(get_async_session)
+) -> list[CategoryDB]:
+    return await category_crud.get_all(session)
+
+
 @router.post('/')
 async def create_category(
-    products: CategoryCreate | list[CategoryCreate],
+    category: CategoryCreate | list[CategoryCreate],
     session: AsyncSession = Depends(get_async_session)
 ) -> None:
-    if isinstance(products, list):
-        await category_crud.bulk_create(products, session)
+    if isinstance(category, list):
+        await category_crud.bulk_create(category, session)
         return await commit_change(session)
     else:
-        new_product = await category_crud.create(products, session)
-        return await commit_change(session, new_product)
+        new_category = await category_crud.create(category, session)
+        return await commit_change(session, new_category)

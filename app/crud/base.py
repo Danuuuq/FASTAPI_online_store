@@ -34,7 +34,6 @@ class CRUDBase:
         session: AsyncSession,
     ):
         obj_in_data = obj_in.dict()
-        # breakpoint()
         db_obj = self.model(**obj_in_data)
         session.add(db_obj)
         return db_obj
